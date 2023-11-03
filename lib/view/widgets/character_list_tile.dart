@@ -14,7 +14,16 @@ class CharacterListTile extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        decoration: BoxDecoration(border: Border.all(), color: Colors.white38),
+        decoration: BoxDecoration(
+          color: Colors.white10,
+            border: Border.all(color: Colors.grey.withOpacity(0.6)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.white.withOpacity(1.0),
+                  blurRadius: 8,
+                  offset: Offset(0, 9))
+            ]),
         height: MediaQuery.of(context).size.height / 7,
         child: InkWell(
           onTap: () {
@@ -53,11 +62,23 @@ class CharacterListTile extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 1.9,
-                      child: Text(
-                        result.name,
-                        style: const  TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w500),
-                        overflow: TextOverflow.ellipsis,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            result.name,
+                            style: const  TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          InkWell(
+                            child: const Icon(Icons.bookmark,
+                            size: 15,),
+                            onTap: (){
+
+                            },
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
