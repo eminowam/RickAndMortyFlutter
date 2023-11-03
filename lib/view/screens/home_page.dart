@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
         backgroundColor: Colors.white12,
-        items: [
+        items:const [
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
               // backgroundColor: Colors.black,
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
               } else if (_currentIndex == 1) {
                 return StorageScreen();
               }
-              return SizedBox();
+              return const SizedBox();
             },
           )
       ),
