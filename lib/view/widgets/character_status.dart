@@ -19,7 +19,7 @@ class CharacterStatus extends StatelessWidget {
           ? Colors.lightGreenAccent[400]
           : liveState==LiveState.dead
           ?Colors.red
-          :Colors.white,
+          :Colors.blue,
         ),
        const  SizedBox(width: 6,),
         Text(

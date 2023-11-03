@@ -42,22 +42,22 @@ class _PageOneState extends State<PageOne> {
       children: [
         Padding(
           padding:
-              const EdgeInsets.only(top: 15, bottom: 15, right: 16, left: 16),
+              const EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
           child: TextField(
             style: const TextStyle(color: Colors.black),
-            cursorColor: Colors.white,
+            cursorColor: Colors.black,
             decoration: InputDecoration(
                 filled: true,
-                fillColor: AppColor.mainAppColor,
+                fillColor: Colors.white30 ,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none),
+                    borderSide: BorderSide(color: Colors.grey.withOpacity(0.4))),
                 prefixIcon: const  Icon(
                   Icons.search,
-                  color: Colors.white38,
+                  color: Colors.black87,
                 ),
                 hintText: "Поиск по имени",
-                hintStyle: const TextStyle(color: Colors.white38,
+                hintStyle: const TextStyle(color: Colors.black26,
                 fontSize: 15,)),
             onChanged: (value) {
               _currentPage = 1;

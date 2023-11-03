@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
       title: 'Rick and Morty',
       theme: ThemeData(
         useMaterial3: true,
-        fontFamily: "PlayFair"
+        fontFamily: "PlayFair",
+        backgroundColor: Colors.white12,
       ),
       home: HomePage(title: "Rick and Morty"),
       // routes: {
