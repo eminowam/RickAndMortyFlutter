@@ -12,7 +12,6 @@ class Character with _$Character{
 
 })=_Character;
   factory Character.fromJson(Map<String,dynamic> json)=> _$CharacterFromJson(json);
-
 }
 
 @freezed
@@ -24,7 +23,6 @@ class Info with _$Info{
     String? prev,
 })=_Info;
   factory Info.fromJson(Map<String,dynamic> json)=> _$InfoFromJson(json);
-
 }
 
 @freezed
@@ -39,6 +37,4 @@ class Results with _$Results{
 
 })=_Results;
   factory Results.fromJson(Map<String,dynamic> json)=> _$ResultsFromJson(json);
-
-
 }

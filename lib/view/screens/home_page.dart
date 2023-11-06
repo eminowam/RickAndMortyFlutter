@@ -38,7 +38,6 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         elevation: 1,
         showSelectedLabels: false,
-        showUnselectedLabels: false,
         selectedItemColor: AppColor.mainAppColor,
         unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,

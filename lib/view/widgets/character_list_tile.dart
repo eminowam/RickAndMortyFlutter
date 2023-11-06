@@ -57,6 +57,7 @@ class _CharacterListTileState extends State<CharacterListTile> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CachedNetworkImage(
+                fit: BoxFit.fill,
                 imageUrl: widget.result.image,
                 placeholder: (
                   context,
@@ -68,38 +69,42 @@ class _CharacterListTileState extends State<CharacterListTile> {
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 5),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 1.75,
+                      width: MediaQuery.of(context).size.width / 1.71,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            widget.result.name,
-                            overflow: TextOverflow.fade,
-                            softWrap: false,
-                            maxLines: 1,
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w400),
+                          FittedBox(
+                            child: Text(
+                              widget.result.name,
+                              overflow: TextOverflow.clip,
+                              softWrap: true,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
+                            ),
                           ),
-                          IconButton(
-                              onPressed: () async {
-                                await DatabaseHelper.saveCharacter(
-                                    widget.characterId);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Saved')),
-                                );
-                                setState(() {
-                                  isSaved = true;
-                                });
-                              },
-                              icon: Icon(isSaved
-                                  ? Icons.bookmark
-                                  : Icons.bookmark_border))
+                          Flexible(
+                            child: IconButton(
+                                onPressed: () async {
+                                  await DatabaseHelper.saveCharacter(
+                                      widget.characterId);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Saved')),
+                                  );
+                                  setState(() {
+                                    isSaved = true;
+                                  });
+                                },
+                                icon: Icon(isSaved
+                                    ? Icons.bookmark
+                                    : Icons.bookmark_border)),
+                          )
                         ],
                       ),
                     ),
@@ -109,48 +114,47 @@ class _CharacterListTileState extends State<CharacterListTile> {
                             : widget.result.status == 'Dead'
                                 ? LiveState.dead
                                 : LiveState.unknown),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Species: ",
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w400),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                widget.result.species,
-                                style: const TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w400),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Gender: ",
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w400),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                widget.result.gender,
-                                style: const TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w400),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Species: ",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          widget.result.species,
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w400),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Gender: ",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          widget.result.gender,
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w400),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
