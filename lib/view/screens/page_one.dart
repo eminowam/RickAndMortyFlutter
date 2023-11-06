@@ -28,8 +28,9 @@ class _PageOneState extends State<PageOne> {
   int _currentPage = 1;
   String _currentSearch = '';
 
-  final RefreshController refreshController = RefreshController();
-  bool _isPagination = false;
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+  bool _isPagination = true;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +102,7 @@ class _PageOneState extends State<PageOne> {
               if (_isPagination) {
                 _currentResult.addAll(_currentCharacter.results);
                 refreshController.loadComplete();
-                _isPagination = false;
+                _isPagination = true;
               } else {
                 _currentResult = _currentCharacter.results;
               }
@@ -134,7 +135,7 @@ class _PageOneState extends State<PageOne> {
       child: ListView.separated(
         itemBuilder: (context, index) {
           final result = currentResults[index];
-          final characterId=currentResults[index];
+          final characterId = currentResults[index];
           return Padding(
             padding:
                 const EdgeInsets.only(top: 3, bottom: 3, left: 15, right: 15),

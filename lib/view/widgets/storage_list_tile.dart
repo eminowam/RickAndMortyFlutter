@@ -1,11 +1,13 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rest_api_ram/data/models/character.dart';
+import 'package:rest_api_ram/data_base/const_db.dart';
 import 'package:rest_api_ram/data_base/db_helper.dart';
 import 'package:rest_api_ram/view/screens/details.dart';
 import 'package:rest_api_ram/view/widgets/character_status.dart';
 
-class StorageListTile extends StatelessWidget {
+class StorageListTile extends StatefulWidget {
   final Results result;
   final int characterId;
   final bool? isSaved;
@@ -15,6 +17,29 @@ class StorageListTile extends StatelessWidget {
     required this.result,
     required this.characterId,
     this.isSaved});
+
+  @override
+  State<StorageListTile> createState() => _StorageListTileState();
+}
+
+class _StorageListTileState extends State<StorageListTile> {
+  // List<List<int>> savedCharacters=[];
+  //
+  //
+  // void loadSavedElements() async {
+  //   List<int> characters = await DatabaseHelper.getSavedCharacters();
+  //   setState(() {
+  //     savedCharacters = characters.cast<List<int>>();
+  //   });
+  // }
+
+  void removeElement(int characterId) async {
+    await DatabaseHelper.deleteCharacter(characterId);
+    // loadSavedElements();
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +65,10 @@ class StorageListTile extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => DetailsScreen(
-                      result: result,
-                      liveState: result.status == "Alive"
+                      result: widget.result,
+                      liveState: widget.result.status == "Alive"
                           ? LiveState.alive
-                          : result.status == "Dead"
+                          : widget.result.status == "Dead"
                           ? LiveState.dead
                           : LiveState.unknown,
                     )),
@@ -53,7 +78,7 @@ class StorageListTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CachedNetworkImage(
-                  imageUrl: result.image,
+                  imageUrl: widget.result.image,
                   placeholder: (
                       context,
                       url,
@@ -76,15 +101,16 @@ class StorageListTile extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              result.name,
+                              widget.result.name,
                               overflow: TextOverflow.fade,
                               softWrap: false,
                               maxLines: 1,
                               style: const TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w400),
                             ),
-                            IconButton(onPressed: () async{
-                              await DatabaseHelper.deleteItem(characterId);
+                            IconButton(onPressed: () {
+
+                              removeElement(widget.characterId);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text('Deleted')),);
                             }, icon: const Icon(Icons.close))
@@ -95,9 +121,9 @@ class StorageListTile extends StatelessWidget {
                         height: 0,
                       ),
                       CharacterStatus(
-                          liveState: result.status == 'Alive'
+                          liveState: widget.result.status == 'Alive'
                               ? LiveState.alive
-                              : result.status == 'Dead'
+                              : widget.result.status == 'Dead'
                               ? LiveState.dead
                               : LiveState.unknown),
                             Row(
@@ -113,7 +139,7 @@ class StorageListTile extends StatelessWidget {
                                   height: 3,
                                 ),
                                 Text(
-                                  result.species,
+                                  widget.result.species,
                                   style: const TextStyle(
                                       fontSize: 13, fontWeight: FontWeight.w400),
                                   maxLines: 1,
@@ -134,7 +160,7 @@ class StorageListTile extends StatelessWidget {
                                   height: 3,
                                 ),
                                 Text(
-                                  result.gender,
+                                  widget.result.gender,
                                   style: const TextStyle(
                                       fontSize: 14, fontWeight: FontWeight.w400),
                                   overflow: TextOverflow.ellipsis,

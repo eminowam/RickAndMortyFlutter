@@ -19,7 +19,7 @@ class DatabaseHelper {
     await prefs.setStringList(_kPrefsKey, savedIds);
   }
 
-  static Future<void> deleteItem(int id) async {
+  static Future<void> deleteCharacter(int id) async {
     final prefs = await SharedPreferences.getInstance();
     final deleteIds = prefs.getStringList(_kPrefsKey) ?? [];
 
