@@ -56,7 +56,10 @@ flutter:
   fonts:
     - family: Playfair
       fonts:
-        - asset: fonts/playfair/PlayfairDisplay-Italic-VariableFont_wght.ttf
-        - asset: fonts/playfair/PlayfairDisplay-VariableFont_wght.ttf
+        - asset: fonts/playfair/Roboto-Black.ttf
+        - asset: fonts/playfair/Roboto-Bold.ttf
+        - asset: fonts/playfair/Roboto-Light.ttf
+        - asset: fonts/playfair/Roboto-Medium.ttf
+        - asset: fonts/playfair/Roboto-Regular.ttf
 
 

@@ -41,33 +41,37 @@ class _PageOneState extends State<PageOne> {
         Padding(
           padding:
               const EdgeInsets.only(top: 10, bottom: 10, right: 10, left: 10),
-          child: TextField(
-            style: const TextStyle(color: Colors.black),
-            cursorColor: Colors.black,
-            decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white30,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                        BorderSide(color: Colors.grey.withOpacity(0.4))),
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: Colors.black87,
-                ),
-                hintText: "Поиск по имени",
-                hintStyle: const TextStyle(
-                  color: Colors.black26,
-                  fontSize: 15,
-                )),
-            onChanged: (value) {
-              _currentPage = 1;
-              _currentResult = [];
-              _currentSearch = value;
-              context
-                  .read<CharacterBloc>()
-                  .add(CharacterEvent.fetch(name: value, page: _currentPage));
-            },
+          child: SizedBox(
+            height: 50,
+            width: 370,
+            child: TextField(
+              style: const TextStyle(color: Colors.black),
+              cursorColor: Colors.black,
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white30,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: Colors.grey.withOpacity(0.4))),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: Colors.black38,
+                  ),
+                  hintText: "Поиск по имени",
+                  hintStyle: const TextStyle(
+                    color: Colors.black38,
+                    fontSize: 15,
+                  )),
+              onChanged: (value) {
+                _currentPage = 1;
+                _currentResult = [];
+                _currentSearch = value;
+                context
+                    .read<CharacterBloc>()
+                    .add(CharacterEvent.fetch(name: value, page: _currentPage));
+              },
+            ),
           ),
         ),
         Expanded(

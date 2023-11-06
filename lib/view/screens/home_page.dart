@@ -29,6 +29,9 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white12,
         title: Text(
           widget.title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500
+          ),
         ),
         elevation: 2,
       ),
@@ -39,7 +42,7 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: AppColor.mainAppColor,
         unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
-        backgroundColor: Colors.white12,
+        backgroundColor: Colors.white30,
         items:const [
           BottomNavigationBarItem(
               icon: Icon(Icons.home),

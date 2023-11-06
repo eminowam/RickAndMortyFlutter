@@ -5,12 +5,22 @@ import 'package:rest_api_ram/data_base/db_helper.dart';
 import 'package:rest_api_ram/view/screens/details.dart';
 import 'package:rest_api_ram/view/widgets/character_status.dart';
 
-class CharacterListTile extends StatelessWidget {
+class CharacterListTile extends StatefulWidget {
   final Results result;
   final int characterId;
-  final bool? isSaved;
 
-  const CharacterListTile({super.key, required this.result, required this.characterId, this.isSaved});
+  const CharacterListTile({
+    super.key,
+    required this.result,
+    required this.characterId,
+  });
+
+  @override
+  State<CharacterListTile> createState() => _CharacterListTileState();
+}
+
+class _CharacterListTileState extends State<CharacterListTile> {
+  bool isSaved = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +37,17 @@ class CharacterListTile extends StatelessWidget {
                   blurRadius: 8,
                   offset: Offset(0, 9))
             ]),
-        height: MediaQuery.of(context).size.height / 7,
+        height: MediaQuery.of(context).size.height / 6.3,
         child: InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => DetailsScreen(
-                        result: result,
-                        liveState: result.status == "Alive"
+                        result: widget.result,
+                        liveState: widget.result.status == "Alive"
                             ? LiveState.alive
-                            : result.status == "Dead"
+                            : widget.result.status == "Dead"
                                 ? LiveState.dead
                                 : LiveState.unknown,
                       )),
@@ -47,7 +57,7 @@ class CharacterListTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CachedNetworkImage(
-                imageUrl: result.image,
+                imageUrl: widget.result.image,
                 placeholder: (
                   context,
                   url,
@@ -58,89 +68,89 @@ class CharacterListTile extends StatelessWidget {
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 15, bottom: 0),
+                padding: const EdgeInsets.only(left: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 1.76,
+                      width: MediaQuery.of(context).size.width / 1.75,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            result.name,
+                            widget.result.name,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                            maxLines: 1,
                             style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w500),
-                            overflow: TextOverflow.ellipsis,
+                                fontSize: 14, fontWeight: FontWeight.w400),
                           ),
-                          IconButton(onPressed: () async{
-                            await DatabaseHelper.saveCharacter(characterId);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Save')),);
-                          }, icon: Icon(Icons.bookmark))
+                          IconButton(
+                              onPressed: () async {
+                                await DatabaseHelper.saveCharacter(
+                                    widget.characterId);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Saved')),
+                                );
+                                setState(() {
+                                  isSaved = true;
+                                });
+                              },
+                              icon: Icon(isSaved
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_border))
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 0,
-                    ),
                     CharacterStatus(
-                        liveState: result.status == 'Alive'
+                        liveState: widget.result.status == 'Alive'
                             ? LiveState.alive
-                            : result.status == 'Dead'
+                            : widget.result.status == 'Dead'
                                 ? LiveState.dead
                                 : LiveState.unknown),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 2,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
+
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Species: ",
                                 style: TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.w500),
+                                    fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                               const SizedBox(
                                 height: 3,
                               ),
                               Text(
-                                result.species,
+                                widget.result.species,
                                 style: const TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.w500),
+                                    fontSize: 14, fontWeight: FontWeight.w400),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               )
                             ],
                           ),
-                          Column(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Gender: ",
                                 style: TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.w500),
+                                    fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                               const SizedBox(
                                 height: 3,
                               ),
                               Text(
-                                result.gender,
+                                widget.result.gender,
                                 style: const TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
+                                    fontSize: 14, fontWeight: FontWeight.w400),
                                 overflow: TextOverflow.ellipsis,
                               ),
-                            ],
-                          ),
                         ],
                       ),
-                    )
                   ],
                 ),
               ),
