@@ -36,6 +36,9 @@ class DetailsScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
+             const SizedBox(
+                height: 10,
+              ),
                  Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -49,6 +52,7 @@ class DetailsScreen extends StatelessWidget {
                   const SizedBox(
                     width: 6,
                   ),
+
                   Text(
                     liveState == LiveState.alive
                         ? "Alive"
@@ -62,8 +66,8 @@ class DetailsScreen extends StatelessWidget {
                   )
                 ],
               ),
-             SizedBox(
-                height: 20,
+             const SizedBox(
+                height: 7,
               ),
            Row(
              mainAxisAlignment: MainAxisAlignment.start,
@@ -115,8 +119,11 @@ class DetailsScreen extends StatelessWidget {
                     color: Colors.orange,
                     fontSize: 16,
                     fontWeight: FontWeight.bold),),
+             const SizedBox(
+               height: 6,
+             ),
              const  Text(
-                "Rick and Morty is the Emmy award-winning half-hour animated "
+                "    Rick and Morty is the Emmy award-winning half-hour animated "
                     "hit comedy series on Adult Swim that follows a sociopathic "
                     "genius scientist who drags his inherently timid grandson on "
                     "insanely dangerous adventures across the universe. Rick Sanchez "
