@@ -130,8 +130,7 @@ class DetailsScreen extends StatelessWidget {
                     "is living with his daughter Beth’s family and constantly bringing "
                     "her, his son-in-law Jerry, granddaughter "
                     "Summer, and grandson Morty into intergalactic escapades. ",
-                // overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style:  TextStyle(
                     color: Colors.black, fontSize: 18),
               ),
             ],

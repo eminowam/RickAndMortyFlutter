@@ -22,6 +22,19 @@ class CharacterListTile extends StatefulWidget {
 class _CharacterListTileState extends State<CharacterListTile> {
   bool isSaved = false;
 
+  late DatabaseHelper databaseHelper;
+
+  @override
+  void initState() {
+    initSharedPref();
+    super.initState();
+  }
+
+  initSharedPref() async {
+    databaseHelper = DatabaseHelper();
+    databaseHelper.initSharedPref();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -30,12 +43,12 @@ class _CharacterListTileState extends State<CharacterListTile> {
         decoration: BoxDecoration(
             color: Colors.white10,
             border: Border.all(color: Colors.grey.withOpacity(0.6)),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
             boxShadow: [
               BoxShadow(
                   color: Colors.white.withOpacity(1.0),
                   blurRadius: 8,
-                  offset: Offset(0, 9))
+                  offset: const Offset(0, 9))
             ]),
         height: MediaQuery.of(context).size.height / 6.3,
         child: InkWell(
@@ -92,16 +105,17 @@ class _CharacterListTileState extends State<CharacterListTile> {
                           Flexible(
                             child: IconButton(
                                 onPressed: () async {
-                                  await DatabaseHelper.saveCharacter(
-                                      widget.characterId);
+                                  await databaseHelper
+                                      .saveCharacter(widget.characterId);
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Saved')),
+                                   const  SnackBar(content: Text('Saved')),
                                   );
-                                  setState(() {
-                                    isSaved = true;
-                                  });
+                                  // setState(() {
+                                  //   isSaved = true;
+                                  // });
                                 },
-                                icon: Icon(isSaved
+                                icon: Icon(databaseHelper.getIsSave(
+                                        widget.characterId.toString())
                                     ? Icons.bookmark
                                     : Icons.bookmark_border)),
                           )
