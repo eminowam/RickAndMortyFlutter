@@ -13,6 +13,7 @@ class StorageScreen extends StatefulWidget {
 
 class _StorageScreenState extends State<StorageScreen> {
   final CharacterRepository repository = CharacterRepository();
+  late DatabaseHelper databaseHelper;
 
   @override
   void initState() {
@@ -21,14 +22,23 @@ class _StorageScreenState extends State<StorageScreen> {
   }
 
   List<int> ids = [];
+  bool isLoading = true;
 
   initPref() async {
-    ids = await DatabaseHelper.getSavedCharacters();
-    setState(() {});
+    databaseHelper = DatabaseHelper();
+    await databaseHelper.initSharedPref();
+    ids = databaseHelper.getSavedCharacters();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    if(isLoading){
+      return const CircularProgressIndicator();
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20),

@@ -3,15 +3,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DatabaseHelper {
   static const String _kPrefsKey = 'saved_items';
 
-  static Future<List<int>> getSavedCharacters() async {
-    final prefs = await SharedPreferences.getInstance();
+  late SharedPreferences prefs;
+
+  Future<void> initSharedPref() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  List<int> getSavedCharacters() {
     final savedIds = prefs.getStringList(_kPrefsKey) ?? [];
 
     return savedIds.map(int.parse).toList();
   }
 
-  static Future<void> saveCharacter(int id) async {
-    final prefs = await SharedPreferences.getInstance();
+  Future<void> saveCharacter(int id) async {
     final savedIds = prefs.getStringList(_kPrefsKey) ?? [];
 
     savedIds.add(id.toString());
@@ -19,8 +23,19 @@ class DatabaseHelper {
     await prefs.setStringList(_kPrefsKey, savedIds);
   }
 
-  static Future<void> deleteCharacter(int id) async {
-    final prefs = await SharedPreferences.getInstance();
+  bool getIsSave(String id) {
+    final savedIds = prefs.getStringList(_kPrefsKey) ?? [];
+
+    for (var element in savedIds) {
+      if (element == id) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  Future<void> deleteCharacter(int id) async {
     final deleteIds = prefs.getStringList(_kPrefsKey) ?? [];
 
     deleteIds.remove(id.toString());
